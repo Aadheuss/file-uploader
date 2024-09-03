@@ -5,13 +5,19 @@
   "scripts": {
     "start": "node ./bin/www",
     "devstart": "node --watch ./bin/www",
-    "serverstart": "DEBUG=file-uploader:* npm run devstart"
+    "serverstart": "DEBUG=file-uploader:* npm run devstart",
+    "populate": "node db/populatedb.js",
+    "data-migration:add-username-column": "node prisma/migrations/20240903153146_add_username_column/data-migration.js"
   },
   "dependencies": {
+    "@prisma/client": "^5.19.1",
     "debug": "~2.6.9",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "prisma": "^5.19.1"
   }
 }
