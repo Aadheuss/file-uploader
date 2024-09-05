@@ -1,4 +1,9 @@
+const { body, validationResult } = require("express-validator");
 const passport = require("passport");
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
+const asyncHandler = require("express-async-handler");
+const db = require("../db/queries");
 
 const isUserLoggedIn = (req, res, next) => {
   if (req.user) {
@@ -7,6 +12,57 @@ const isUserLoggedIn = (req, res, next) => {
 
   next();
 };
+
+const userValidation = [
+  body("username", "Username must not be empty")
+    .trim()
+    .isLength({ min: 1 })
+    .isLength({ max: 70 })
+    .withMessage("Username must not exceed 70 characters")
+    .isAlphanumeric()
+    .withMessage("Username name must only contain letters and numbers")
+    .escape()
+    .custom(async (value, { req }) => {
+      const usernameExist = await prisma.user.findUnique({
+        where: { username: value },
+      });
+
+      if (usernameExist) {
+        throw new Error("Username is already taken");
+      }
+    }),
+  body("password", "Password must contain at least 8 characters")
+    .trim()
+    .isLength({ min: 8 })
+    .escape(),
+];
+
+exports.user_signup_get = (req, res) => {
+  res.render("signup-form", { title: "Signup page" });
+};
+
+exports.user_signup_post = [
+  userValidation,
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).render("signup-form", {
+        title: "Signup page",
+        username: req.body.username,
+        password: req.body.password,
+        errors: errors.array(),
+      });
+    }
+
+    const user = await db.createUser({
+      username: req.body.username,
+      password: req.body.password,
+    });
+
+    res.redirect("/users/login");
+  }),
+];
 
 exports.user_login_get = [
   isUserLoggedIn,

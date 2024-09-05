@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%-include("./partials/head", {title: title})%>
+  <body>
+    <%-include("./partials/form-error", {errors: locals.errors})%>
+    <form method="POST" action="/users/signup">
+      <label for="username"> Username
+        <input id="username" type="text" name="username" required value=<%=locals.username?username:""%>>
+      </label>
+       <label for="new-password"> Password
+        <input id="new-password" type="password" name="password" required minlength="8" value=<%=locals.password?password:""%>>
+      </label>
+      <button type="submit">Sign up</button>
+    </form>
+  </body>
+</html>
