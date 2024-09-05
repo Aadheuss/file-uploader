@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%-include("./partials/head", {title: title})%>
+  <body>
+    <form method="POST" action="/users/login">
+      <label for="username"> Username
+        <input id="username" type="text" name="username" required>
+      </label>
+       <label for="current-password"> Password
+        <input id="current-password" type="text" name="password" required>
+      </label>
+      <button type="submit">Log in</button>
+    </form>
+  </body>
+</html>
