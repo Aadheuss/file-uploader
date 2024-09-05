@@ -4,8 +4,11 @@ const router = express.Router();
 /* GET home page. */
 router.get("/", function (req, res, next) {
   const user = req.user;
-  console.log({ user });
-  res.render("index", { title: "Express", user: { username: user.username } });
+
+  res.render("index", {
+    title: "Express",
+    user: user ? { username: user.username } : user,
+  });
 });
 
 module.exports = router;

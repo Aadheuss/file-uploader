@@ -1,7 +1,7 @@
 const passport = require("passport");
 
 const isUserLoggedIn = (req, res, next) => {
-  if (req.session.passport.user) {
+  if (req.user) {
     return res.redirect("/");
   }
 
@@ -22,3 +22,13 @@ exports.user_login_post = [
     failureRedirect: "login",
   }),
 ];
+
+exports.user_logout_get = (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+
+    res.redirect("/");
+  });
+};
