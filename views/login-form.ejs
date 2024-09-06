@@ -2,6 +2,7 @@
 <html lang="en">
   <%-include("./partials/head", {title: title})%>
   <body>
+    <%-include("./partials/form-error", { errors: locals.errors})%>
     <form method="POST" action="/users/login">
       <label for="username"> Username
         <input id="username" type="text" name="username" required>
