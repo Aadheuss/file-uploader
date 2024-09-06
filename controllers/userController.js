@@ -4,6 +4,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const asyncHandler = require("express-async-handler");
 const db = require("../db/queries");
+const bcrypt = require("bcryptjs");
 
 const isUserLoggedIn = (req, res, next) => {
   if (req.user) {
@@ -64,12 +65,22 @@ exports.user_signup_post = [
       });
     }
 
-    const user = await db.createUser({
-      username: req.body.username,
-      password: req.body.password,
-    });
+    bcrypt.hash(
+      req.body.password,
+      10,
+      asyncHandler(async (err, hashedPassword) => {
+        if (err) {
+          next(err);
+        }
 
-    res.redirect("/users/login");
+        const user = await db.createUser({
+          username: req.body.username,
+          password: hashedPassword,
+        });
+
+        res.redirect("/users/login");
+      })
+    );
   }),
 ];
 
