@@ -13,8 +13,8 @@ const isUserLoggedIn = (req, res, next) => {
   next();
 };
 
-const userValidation = [
-  body("username", "Username must not be empty")
+const userValidation = {
+  username_signup: body("username", "Username must not be empty")
     .trim()
     .isLength({ min: 1 })
     .isLength({ max: 70 })
@@ -31,18 +31,19 @@ const userValidation = [
         throw new Error("Username is already taken");
       }
     }),
-  body("password", "Password must contain at least 8 characters")
+  password: body("password", "Password must contain at least 8 characters")
     .trim()
     .isLength({ min: 8 })
     .escape(),
-];
+};
 
 exports.user_signup_get = (req, res) => {
   res.render("signup-form", { title: "Signup page" });
 };
 
 exports.user_signup_post = [
-  userValidation,
+  userValidation.username_signup,
+  userValidation.password,
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
 
