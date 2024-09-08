@@ -20,7 +20,7 @@ exports.file_post = [
     let folderId = req.body.folderid;
 
     if (!folderId) {
-      const folder = await db.getUserMainFolder({ userId: req.user.id });
+      const folder = await db.getUserMainFolderId({ userId: req.user.id });
       folderId = folder.id;
     }
 

@@ -29,6 +29,23 @@ exports.getUserMainFolderId = async ({ userId }) => {
   return folder;
 };
 
+exports.getUserMainFolder = async ({ userId }) => {
+  const folder = await prisma.folder.findFirst({
+    where: {
+      AND: {
+        name: "main",
+        ownerId: userId,
+      },
+    },
+    include: {
+      children: true,
+      files: true,
+    },
+  });
+
+  return folder;
+};
+
 exports.createFile = async ({ name, data, folderId }) => {
   console.log({ name, data, folderId });
   const file = await prisma.file.create({
