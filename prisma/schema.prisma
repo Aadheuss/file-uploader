@@ -42,6 +42,8 @@ model File {
   id       String @id @default(uuid())
   name     String
   data     Bytes
+  mimetype String
+  size     Int
   folder   Folder @relation(fields: [folderId], references: [id])
   folderId String
 }
