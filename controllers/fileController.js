@@ -4,7 +4,7 @@ const multer = require("multer");
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-exports.file_upload_get = [
+exports.file_form_get = [
   (req, res) => {
     if (!req.user) {
       return res.redirect("/users/login");
@@ -14,7 +14,7 @@ exports.file_upload_get = [
   },
 ];
 
-exports.file_upload_post = [
+exports.file_post = [
   upload.single("file"),
   async (req, res) => {
     let folderId = req.body.folderid;
