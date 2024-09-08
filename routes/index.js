@@ -14,7 +14,7 @@ router.get("/", async (req, res, next) => {
   res.render("index", {
     title: "Express",
     user: user ? { username: user.username } : user,
-    files: mainFolder.files,
+    files: mainFolder ? mainFolder.files : mainFolder,
   });
 });
 
