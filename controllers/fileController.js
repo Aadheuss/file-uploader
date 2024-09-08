@@ -55,6 +55,6 @@ exports.file_post = [
       folderId,
     });
 
-    res.send("processed");
+    res.redirect(`/files/file/${file.id}`);
   },
 ];
