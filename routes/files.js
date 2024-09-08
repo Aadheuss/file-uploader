@@ -3,8 +3,8 @@ const router = express.Router();
 
 const fileContreller = require("../controllers/fileController");
 
-router.get("/file", fileContreller.file_get);
+router.get("/upload", fileContreller.file_upload_get);
 
-router.post("/file", fileContreller.file_post);
+router.post("/upload", fileContreller.file_upload_post);
 
 module.exports = router;
