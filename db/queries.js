@@ -46,11 +46,13 @@ exports.getUserMainFolder = async ({ userId }) => {
   return folder;
 };
 
-exports.createFile = async ({ name, data, folderId }) => {
+exports.createFile = async ({ name, data, mimetype, size, folderId }) => {
   const file = await prisma.file.create({
     data: {
       name: name,
       data: data,
+      mimetype: mimetype,
+      size: size,
       folderId: folderId,
     },
   });

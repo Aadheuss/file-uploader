@@ -50,6 +50,8 @@ exports.file_post = [
     const file = await db.createFile({
       name: req.file.originalname,
       data: req.file.buffer,
+      mimetype: req.file.mimetype,
+      size: req.file.size,
       folderId,
     });
 
