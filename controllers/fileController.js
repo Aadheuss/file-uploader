@@ -14,7 +14,7 @@ exports.file_form_get = [
   },
 ];
 
-exports.file_get = async (req, res, next) => {
+exports.file_get = asyncHandler(async (req, res, next) => {
   if (!req.user) {
     return res.redirect("/users/login");
   }
@@ -35,11 +35,11 @@ exports.file_get = async (req, res, next) => {
     title: "File Information",
     file,
   });
-};
+});
 
 exports.file_post = [
   upload.single("file"),
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     let folderId = req.body.folderid;
 
     if (!folderId) {
@@ -56,5 +56,5 @@ exports.file_post = [
     });
 
     res.redirect(`/files/file/${file.id}`);
-  },
+  }),
 ];
