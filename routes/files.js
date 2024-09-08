@@ -7,4 +7,6 @@ router.get("/upload", fileContreller.file_form_get);
 
 router.post("/file", fileContreller.file_post);
 
+router.get("/file/:fileid", fileContreller.file_get);
+
 module.exports = router;

@@ -14,6 +14,29 @@ exports.file_form_get = [
   },
 ];
 
+exports.file_get = async (req, res, next) => {
+  if (!req.user) {
+    return res.redirect("/users/login");
+  }
+
+  const { fileid } = req.params;
+  console.log(fileid);
+
+  const file = await db.getUserFileWithId({
+    userId: req.user.id,
+    fileId: fileid,
+  });
+
+  if (file === null) {
+    return next();
+  }
+
+  res.render("file-details-page", {
+    title: "File Information",
+    file,
+  });
+};
+
 exports.file_post = [
   upload.single("file"),
   async (req, res) => {

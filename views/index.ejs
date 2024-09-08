@@ -21,6 +21,7 @@
           <% files.map(file => { %>
             <li>
               <p><%=file.name%></p>
+              <a href=<%=`/files/file/${file.id}`%>>details</a>
             </li>
           <% }) %>
         </ul>
