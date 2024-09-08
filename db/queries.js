@@ -13,13 +13,16 @@ exports.createUser = async ({ username, password }) => {
   return user;
 };
 
-exports.getUserMainFolder = async ({ userId }) => {
+exports.getUserMainFolderId = async ({ userId }) => {
   const folder = await prisma.folder.findFirst({
     where: {
       AND: {
         name: "main",
         ownerId: userId,
       },
+    },
+    select: {
+      id: true,
     },
   });
 
