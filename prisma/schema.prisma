@@ -14,9 +14,10 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
-  username String @unique @db.VarChar(70)
+  id       String   @id @default(uuid())
+  username String   @unique @db.VarChar(70)
   password String
+  folders  Folder[]
 }
 
 model Session {
@@ -24,4 +25,23 @@ model Session {
   sid       String   @unique
   data      String
   expiresAt DateTime
+}
+
+model Folder {
+  id       String   @id @default(uuid())
+  name     String
+  files    File[]
+  owner    User     @relation(fields: [ownerId], references: [id])
+  ownerId  String
+  children Folder[] @relation("subFolders")
+  parent   Folder?  @relation("subFolders", fields: [parentId], references: [id])
+  parentId String?
+}
+
+model File {
+  id       String @id @default(uuid())
+  name     String
+  data     Bytes
+  folder   Folder @relation(fields: [folderId], references: [id])
+  folderId String
 }
