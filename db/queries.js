@@ -84,3 +84,20 @@ exports.createSubfolder = async ({ userId, name, parentId }) => {
 
   return subfolder;
 };
+
+exports.getUserFolderById = async ({ userId, folderId }) => {
+  const folder = await prisma.folder.findFirst({
+    where: {
+      AND: {
+        id: folderId,
+        ownerId: userId,
+      },
+    },
+    include: {
+      files: true,
+      children: true,
+    },
+  });
+
+  return folder;
+};
