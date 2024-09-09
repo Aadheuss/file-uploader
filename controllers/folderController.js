@@ -88,6 +88,6 @@ exports.subfolder_post = [
 
     console.log({ subfolder });
 
-    res.redirect("/");
+    res.redirect(`/folder/${parentid}`);
   }),
 ];
