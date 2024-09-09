@@ -42,6 +42,10 @@ exports.file_post = [
   asyncHandler(async (req, res) => {
     let folderId = req.body.folderid;
 
+    if (!req.user) {
+      return res.redirect("/users/login");
+    }
+
     if (!folderId) {
       const folder = await db.getUserMainFolderId({ userId: req.user.id });
       folderId = folder.id;

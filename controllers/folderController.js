@@ -22,6 +22,10 @@ exports.main_folder_get = [
 ];
 
 exports.subfolder_form_get = asyncHandler((req, res) => {
+  if (!req.user) {
+    return res.redirect("/users/login");
+  }
+
   const { parentid } = req.params;
 
   res.render("folder-form", {
@@ -38,6 +42,10 @@ exports.subfolder_post = [
     .withMessage("Folder name must only contain letters and numbers")
     .escape(),
   asyncHandler(async (req, res) => {
+    if (!req.user) {
+      return res.redirect("/users/login");
+    }
+
     const errors = validationResult(req);
     const { parentid } = req.params;
 
