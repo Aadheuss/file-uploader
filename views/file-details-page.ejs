@@ -7,6 +7,9 @@
       <p>name: <%=file.name %></p>
       <p>mimetype: <%=file.mimetype %></p>
       <p>size: <%=file.size %> bytes</p>
+      <form method="POST" action=<%=`/files/file/${file.id}/download`%>>
+        <button type="submit">download</button>
+      </form>
     </li>
   </body>
 </html>

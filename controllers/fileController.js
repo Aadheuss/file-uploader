@@ -58,3 +58,28 @@ exports.file_post = [
     res.redirect(`/files/file/${file.id}`);
   }),
 ];
+
+exports.file_download_post = asyncHandler(async (req, res, next) => {
+  const { fileid } = req.params;
+
+  if (!req.user) {
+    return res.redirect("/users/login");
+  }
+
+  const file = await db.getUserFileWithId({
+    userId: req.user.id,
+    fileId: fileid,
+  });
+
+  if (file === null) {
+    return next();
+  }
+
+  res
+    .set({
+      "Content-Type": file.mimetype,
+      "Content-Length": file.size,
+      "Content-Disposition": `attachment; filename=${file.name}`,
+    })
+    .send(file.data);
+});
