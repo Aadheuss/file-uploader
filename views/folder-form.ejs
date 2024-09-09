@@ -3,9 +3,9 @@
   <%-include("./partials/head", {title: title})%>
   <body>
     <%-include("./partials/form-error", { errors: locals.errors})%>
-    <form method="POST" action=<%`folder/${parentid}/subfolder`%>>
+    <form method="POST" action=<%=`/folder/${parentid}/subfolder`%>>
       <label for="name"> Name
-        <input id="name" type="string" name="folder" required>
+        <input id="name" type="string" name="name" required>
       </label>
       <button type="submit">Create folder</button>
     </form>
