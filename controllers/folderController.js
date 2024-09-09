@@ -51,7 +51,7 @@ exports.subfolder_form_get = asyncHandler((req, res) => {
   const { parentid } = req.params;
 
   res.render("folder-form", {
-    title: "Upload file",
+    title: "Create folder",
     parentid,
   });
 });
