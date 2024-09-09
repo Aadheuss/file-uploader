@@ -61,7 +61,7 @@ exports.file_post = [
       folderId: folderid,
     });
 
-    res.redirect(`/files/file/${file.id}`);
+    res.redirect(`/folder/${folderid}`);
   }),
 ];
 
