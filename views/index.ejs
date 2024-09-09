@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
+  <%-include("./partials/head", {title: title})%>
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
@@ -15,19 +12,5 @@
       <a href="/users/login">Log in</a>
       <a href="/users/signup">Sign up</a>
     <% } %>
-    <% if (locals.files) { %>
-      <% if (files) { %>
-        <ul>
-          <h2>My drive</h2>
-          <% files.map(file => { %>
-            <li>
-              <p><%=file.name%></p>
-              <a href=<%=`/files/file/${file.id}`%>>details</a>
-            </li>
-          <% }) %>
-        </ul>
-      <% } %>
-    <% } %>
-    <a href="/files/upload">upload a new file</a>
   </body>
 </html>

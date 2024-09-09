@@ -6,15 +6,9 @@ const db = require("../db/queries");
 router.get("/", async (req, res, next) => {
   const user = req.user;
 
-  const mainFolder = user
-    ? await db.getUserMainFolder({ userId: req.user.id })
-    : null;
-
-  console.log(mainFolder);
   res.render("index", {
     title: "Express",
     user: user ? { username: user.username } : user,
-    files: mainFolder ? mainFolder.files : mainFolder,
   });
 });
 
