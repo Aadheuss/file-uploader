@@ -19,3 +19,12 @@ exports.main_folder_get = [
     });
   },
 ];
+
+exports.subfolder_form_get = asyncHandler((req, res) => {
+  const { parentid } = req.params;
+
+  res.render("folder-form", {
+    title: "Upload file",
+    parentid,
+  });
+});
