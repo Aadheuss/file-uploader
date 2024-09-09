@@ -72,3 +72,15 @@ exports.getUserFileWithId = async ({ userId, fileId }) => {
 
   return file;
 };
+
+exports.createSubfolder = async ({ userId, name, parentId }) => {
+  const subfolder = await prisma.folder.create({
+    data: {
+      name: name,
+      parentId: parentId,
+      ownerId: userId,
+    },
+  });
+
+  return subfolder;
+};
