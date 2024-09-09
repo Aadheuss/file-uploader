@@ -10,7 +10,9 @@ exports.file_form_get = [
       return res.redirect("/users/login");
     }
 
-    res.render("file-form", { title: "Upload file" });
+    const { folderid } = req.params;
+
+    res.render("file-form", { title: "Upload file", folderid });
   },
 ];
 
@@ -40,15 +42,15 @@ exports.file_get = asyncHandler(async (req, res, next) => {
 exports.file_post = [
   upload.single("file"),
   asyncHandler(async (req, res) => {
-    let folderId = req.body.folderid;
+    let { folderid } = req.params;
 
     if (!req.user) {
       return res.redirect("/users/login");
     }
 
-    if (!folderId) {
+    if (!folderid) {
       const folder = await db.getUserMainFolderId({ userId: req.user.id });
-      folderId = folder.id;
+      folderid = folder.id;
     }
 
     const file = await db.createFile({
@@ -56,7 +58,7 @@ exports.file_post = [
       data: req.file.buffer,
       mimetype: req.file.mimetype,
       size: req.file.size,
-      folderId,
+      folderId: folderid,
     });
 
     res.redirect(`/files/file/${file.id}`);
