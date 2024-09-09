@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+   <%-include("./partials/head", {title: title})%>
+  <body>
+    <a href="/">Home</a>
+    <h1><%= title %></h1>
+      <% if (folder.parentId) { %>
+       <a href=<%=`/folder/${folder.parentId}` %> >...</a>
+      <% } %>
+      <% if (folder.children) { %>
+        <% folder.children.map(child => { %>
+          <a href=<%=`/folder/${child.id}`%> ><%=child.name%></a>
+        <% }) %>
+      <% }%>
+      <% if (folder.files) { %>
+        <ul>
+          <% folder.files.map(file => { %>
+            <li>
+              <p><%=file.name%></p>
+              <a href=<%=`/files/file/${file.id}`%>>details</a>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+    <a href=<%=`/folder/${folder.id}/subfolder-form`%>>Create new subfolder on <%=folder.name%></a>
+  </body>
+</html>
