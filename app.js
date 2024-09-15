@@ -15,7 +15,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const passportConfig = require("./config/passportConfig");
 passport.use(new LocalStrategy(passportConfig.strategy));
 passport.serializeUser(passportConfig.serializeUser);
-passport.deserializeUser(passportConfig.deserializeUserUser);
+passport.deserializeUser(passportConfig.deserializeUser);
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");

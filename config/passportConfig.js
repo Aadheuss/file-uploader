@@ -28,7 +28,7 @@ const serializeUser = (user, done) => {
   done(null, user.id);
 };
 
-const deserializeUserUser = async (id, done) => {
+const deserializeUser = async (id, done) => {
   try {
     const user = await prisma.user.findUnique({
       where: { id: id },
@@ -43,5 +43,5 @@ const deserializeUserUser = async (id, done) => {
 module.exports = {
   strategy,
   serializeUser,
-  deserializeUserUser,
+  deserializeUser,
 };
