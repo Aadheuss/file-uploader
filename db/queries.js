@@ -1,5 +1,4 @@
 const { PrismaClient } = require("@prisma/client");
-const { use } = require("passport");
 const prisma = new PrismaClient();
 
 exports.createUser = async ({ username, password }) => {
